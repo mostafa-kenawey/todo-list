@@ -128,6 +128,9 @@ After running the docker:
 
 - Open `http://localhost:8080/swagger-ui.html` For testing the API
 - Open `http://localhost:8080/h2-console` To access the database
+- JDBC URL `jdbc:h2:mem:todo_db`
+- Username `sa`
+- Password: (leave empty)
 
 #### use Docker Compose:
 
