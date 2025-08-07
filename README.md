@@ -13,6 +13,7 @@ Backend service for managing a simple to-do list. Built with best practices, cod
 
 ## Running the Project
 
+- Clone the project `git clone git@github.com:mostafa-kenawey/todo-list.git`
 - Run `./mvnw spring-boot:run`
 - Open `http://localhost:8080/h2-console` For the H2 Console
 
