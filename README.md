@@ -34,6 +34,22 @@ This endpoint include an option to fetch all items, regardless of their status.
 
 - Run `./mvnw test` To run the tests
 
+## Scheduled Task
+
+This application includes a scheduled background task using @EnableScheduling that automatically updates the status of todo items to OVERDUE when: 
+
+- The current status is NOT_DONE 
+- The dueDatetime is in the past 
+
+### How It Works
+
+- It runs every 60 seconds (configurable). 
+- It logs its execution start and end. 
+- It checks the database for overdue items. 
+- It updates matching items’ statuses to OVERDUE.
+- Once an item is marked as OVERDUE, it won’t be selected again. 
+- You can adjust the frequency by changing the @Scheduled(fixedRate = ...) value.
+
 ## Code Quality and Static Analysis
 
 The project uses the following tools to ensure high code quality and consistency:

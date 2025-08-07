@@ -30,4 +30,6 @@ public interface ToDoItemRepository extends JpaRepository<ToDoItem, Long> {
                                                               LocalDateTime dueDatetime,
                                                               Status status,
                                                               Long id);
+
+  List<ToDoItem> findByStatusAndDueDatetimeBefore(Status status, LocalDateTime dateTime);
 }

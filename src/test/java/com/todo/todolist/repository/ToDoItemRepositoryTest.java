@@ -95,4 +95,23 @@ class ToDoItemRepositoryTest {
         assertThat(exists).isTrue();
         assertThat(notExists).isFalse();
     }
+
+    @Test
+    void testFindByStatusAndDueDatetimeBefore() {
+        LocalDateTime past = LocalDateTime.now().minusDays(1);
+        LocalDateTime future = LocalDateTime.now().plusDays(1);
+
+        ToDoItem overdueItem = createSampleItem("Past Task", Status.NOT_DONE, past);
+        ToDoItem futureItem = createSampleItem("Future Task", Status.NOT_DONE, future);
+        ToDoItem donePastItem = createSampleItem("Done Task", Status.DONE, past);
+
+        repository.save(overdueItem);
+        repository.save(futureItem);
+        repository.save(donePastItem);
+
+        List<ToDoItem> result = repository.findByStatusAndDueDatetimeBefore(Status.NOT_DONE, LocalDateTime.now());
+        
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).getDescription()).isEqualTo("Past Task");
+    }
 }

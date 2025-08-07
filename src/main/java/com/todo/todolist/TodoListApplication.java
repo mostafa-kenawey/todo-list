@@ -7,12 +7,13 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Main application class for the Todo List application.
  */
 @SpringBootApplication
+@EnableScheduling
 public class TodoListApplication {
 
   /**
