@@ -53,3 +53,18 @@ The project uses the following tools to ensure high code quality and consistency
 - **SpotBugs** – Performs static analysis to find bugs and vulnerabilities.
     - Run: `mvn spotbugs:check`
     - Report: `target/spotbugsXml.xml`
+
+
+## API & Documentations
+
+### Swagger UI
+
+You can explore and test the API interactively using Swagger UI, Make sure the application is running locally before accessing the link.
+
+- Open `http://localhost:8080/swagger-ui.html`
+
+### Postman Collection
+
+You can also use Postman to test the API.
+
+- Open Postman and Import this file, All API requests will be available in the collection. `/postman/ToDoList.postman_collection.json`

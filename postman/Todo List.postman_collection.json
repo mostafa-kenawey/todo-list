@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "cd0e4d46-67a6-4208-82ad-2350b3669de8",
+		"name": "Todo List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4470878"
+	},
+	"item": [
+		{
+			"name": "Create Todo Item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Buy groceries\",\n  \"dueDatetime\": \"2026-08-10T18:00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List All Todo Items",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Not Done Todo Items",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos?status=NOT_DONE",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "NOT_DONE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Overdue Todo Items",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos?status=Overdue",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Overdue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Done Todo Items",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos?status=Done",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Done"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Todo Item",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Buy groceries 2\",\n  \"dueDatetime\": \"2026-08-12T18:00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Todo Item",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Todo Item",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark Todo Item as Done",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos/1/done",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1",
+						"done"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark Todo Item as Not Done",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/todos/1/not-done",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"todos",
+						"1",
+						"not-done"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

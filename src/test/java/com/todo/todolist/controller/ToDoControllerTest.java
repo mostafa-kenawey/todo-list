@@ -52,7 +52,7 @@ class ToDoControllerTest {
     void testGetAllItems() throws Exception {
         Mockito.when(toDoService.getAllItems(Optional.empty())).thenReturn(Arrays.asList(item));
 
-        mockMvc.perform(get("/todos"))
+        mockMvc.perform(get("/api/todos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].description").value("Test Task"));
     }
@@ -61,7 +61,7 @@ class ToDoControllerTest {
     void testGetItemById() throws Exception {
         Mockito.when(toDoService.getItemById(1L)).thenReturn(item);
 
-        mockMvc.perform(get("/todos/1"))
+        mockMvc.perform(get("/api/todos/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("Test Task"));
     }
@@ -80,7 +80,7 @@ class ToDoControllerTest {
 
         Mockito.when(toDoService.createItem(any(ToDoItem.class))).thenReturn(created);
 
-        mockMvc.perform(post("/todos")
+        mockMvc.perform(post("/api/todos")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(itemToCreate)))
                 .andExpect(status().isCreated())
@@ -98,7 +98,7 @@ class ToDoControllerTest {
 
         Mockito.when(toDoService.updateItem(eq(1L), any(ToDoItem.class))).thenReturn(updated);
 
-        mockMvc.perform(put("/todos/1")
+        mockMvc.perform(put("/api/todos/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updated)))
                 .andExpect(status().isOk())
@@ -117,7 +117,7 @@ class ToDoControllerTest {
 
         when(toDoService.markAsDone(1L)).thenReturn(item);
 
-        mockMvc.perform(patch("/todos/1/done"))
+        mockMvc.perform(patch("/api/todos/1/done"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.status").value("DONE"));
     }
@@ -133,14 +133,14 @@ class ToDoControllerTest {
 
         when(toDoService.markAsNotDone(1L)).thenReturn(item);
 
-        mockMvc.perform(patch("/todos/1/not-done"))
+        mockMvc.perform(patch("/api/todos/1/not-done"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.status").value("NOT_DONE"));
     }
 
     @Test
     void testDeleteItem() throws Exception {
-        mockMvc.perform(delete("/todos/1"))
+        mockMvc.perform(delete("/api/todos/1"))
                 .andExpect(status().isNoContent());
     }
 }
