@@ -26,7 +26,7 @@ Backend service for managing a simple to-do list. Built with best practices, cod
 The project uses the following tools to ensure high code quality and consistency:
 
 - **JaCoCo** – Measures test coverage.
-    - Run: `mvn test`
+    - Run: `./mvnw test jacoco:report`
     - Clean Report `./mvnw clean test jacoco:report`
     - Report: `target/site/jacoco/index.html`
 
