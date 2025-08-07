@@ -27,6 +27,7 @@ The project uses the following tools to ensure high code quality and consistency
 
 - **JaCoCo** – Measures test coverage.
     - Run: `mvn test`
+    - Clean Report `./mvnw clean test jacoco:report`
     - Report: `target/site/jacoco/index.html`
 
 - **Checkstyle** – Validates code style using Google’s code conventions.

@@ -10,4 +10,9 @@ class TodoListApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void mainMethodRuns() {
+		TodoListApplication.main(new String[]{});
+	}
+
 }

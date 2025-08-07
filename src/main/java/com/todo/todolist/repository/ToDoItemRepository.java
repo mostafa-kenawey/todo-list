@@ -1,0 +1,24 @@
+package com.todo.todolist.repository;
+
+import com.todo.todolist.model.Status;
+import com.todo.todolist.model.ToDoItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * Repository interface for ToDoItem entity.
+ * Extends JpaRepository to provide basic CRUD operations.
+ */
+@Repository
+public interface ToDoItemRepository extends JpaRepository<ToDoItem, Long> {
+
+    /**
+     * Find all items by status.
+     * 
+     * @param status the status to filter by
+     * @return list of matching ToDoItems
+     */
+    List<ToDoItem> findByStatus(Status status);
+}
