@@ -2,6 +2,19 @@
 
 Backend service for managing a simple to-do list. Built with best practices, code quality, testing and clean API design.
 
+## Features
+
+The service must expose a RESTful API to perform the following actions:
+
+- Add an item: Create a new to-do item.
+- Update an item's description: Change the text of an existing item.
+- Mark an item as "done": Change an item status to "done".
+- Mark an item as "not done": Change an item status back to "not done".
+- Get an item: Retrieve the full details of a single to-do item.
+- Get all "not done" items: Retrieve a list of all items with the status "not done". 
+
+This endpoint include an option to fetch all items, regardless of their status.
+
 ## Tech Stack
 
 - Java 17

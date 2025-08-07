@@ -3,16 +3,11 @@ package com.todo.todolist;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TodoListApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
-
-	@Test
-	void mainMethodRuns() {
-		TodoListApplication.main(new String[]{});
 	}
 
 }

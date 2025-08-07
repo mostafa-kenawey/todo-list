@@ -5,6 +5,7 @@ import com.todo.todolist.model.ToDoItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,4 +22,7 @@ public interface ToDoItemRepository extends JpaRepository<ToDoItem, Long> {
      * @return list of matching ToDoItems
      */
     List<ToDoItem> findByStatus(Status status);
+
+    boolean existsByDescriptionAndDueDatetimeAndStatus(String description, LocalDateTime dueDatetime, Status status);
+    boolean existsByDescriptionAndDueDatetimeAndStatusAndIdNot(String description, LocalDateTime dueDatetime, Status status, Long id);
 }

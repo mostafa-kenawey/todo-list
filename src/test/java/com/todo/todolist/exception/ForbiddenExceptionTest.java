@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ResourceNotFoundExceptionTest {
+class ForbiddenExceptionTest {
 
     @Test
     void testExceptionMessage() {
-        String message = "Resource not found";
-        ResourceNotFoundException exception = new ResourceNotFoundException(message);
+        String message = "forbidden action";
+        ForbiddenException exception = new ForbiddenException(message);
 
         assertEquals(message, exception.getMessage());
     }
