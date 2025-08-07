@@ -198,6 +198,86 @@ class ToDoServiceImplTest {
     }
 
     @Test
+    void testMarkAsDone_Success() {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.NOT_DONE);
+        item.setDescription("Test");
+        item.setDueDatetime(LocalDateTime.now().plusDays(1));
+
+        when(repository.findById(1L)).thenReturn(Optional.of(item));
+        when(repository.save(any())).thenAnswer(i -> i.getArgument(0));
+
+        ToDoItem result = service.markAsDone(1L);
+
+        assertEquals(Status.DONE, result.getStatus());
+        assertNotNull(result.getDoneDatetime());
+        verify(repository).save(item);
+    }
+
+    @Test
+    void testMarkAsDone_DoneConflict() {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.DONE);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(item));
+
+        assertThrows(ConflictException.class, () -> service.markAsDone(1L));
+    }
+
+    @Test
+    void testMarkAsDone_OverdueConflict() {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.OVERDUE);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(item));
+
+        assertThrows(ConflictException.class, () -> service.markAsDone(1L));
+    }
+
+    @Test
+    void testMarkAsNotDone_Success() {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.DONE);
+        item.setDescription("Test");
+        item.setDueDatetime(LocalDateTime.now().plusDays(1));
+
+        when(repository.findById(1L)).thenReturn(Optional.of(item));
+        when(repository.save(any())).thenAnswer(i -> i.getArgument(0));
+
+        ToDoItem result = service.markAsNotDone(1L);
+
+        assertEquals(Status.NOT_DONE, result.getStatus());
+        assertNull(result.getDoneDatetime());
+        verify(repository).save(item);
+    }
+
+    @Test
+    void testMarkAsNotDone_NotDoneConflict() {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.NOT_DONE);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(item));
+
+        assertThrows(ConflictException.class, () -> service.markAsNotDone(1L));
+    }
+
+    @Test
+    void testMarkAsNotDone_OverdueConflict() {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.OVERDUE);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(item));
+
+        assertThrows(ConflictException.class, () -> service.markAsNotDone(1L));
+    }
+
+    @Test
     void testDeleteItemSuccess() {
         ToDoItem item = createMockItem();
         item.setStatus(Status.NOT_DONE);

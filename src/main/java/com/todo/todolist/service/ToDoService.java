@@ -19,6 +19,9 @@ public interface ToDoService {
     
     ToDoItem createItem(ToDoItem item);
     ToDoItem updateItem(Long id, ToDoItem updatedItem);
+
+    ToDoItem markAsDone(Long id);
+    ToDoItem markAsNotDone(Long id);
     
     void deleteItem(Long id);
 

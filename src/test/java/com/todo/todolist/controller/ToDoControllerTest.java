@@ -21,7 +21,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -104,6 +104,38 @@ class ToDoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("Updated Task"))
                 .andExpect(jsonPath("$.status").value("DONE"));
+    }
+
+    @Test
+    void testMarkAsDoneEndpoint() throws Exception {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.DONE);
+        item.setDescription("Test");
+        item.setDueDatetime(LocalDateTime.now().plusDays(1));
+        item.setDoneDatetime(LocalDateTime.now());
+
+        when(toDoService.markAsDone(1L)).thenReturn(item);
+
+        mockMvc.perform(patch("/todos/1/done"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.status").value("DONE"));
+    }
+
+    @Test
+    void testMarkAsNotDoneEndpoint() throws Exception {
+        ToDoItem item = new ToDoItem();
+        item.setId(1L);
+        item.setStatus(Status.NOT_DONE);
+        item.setDescription("Test");
+        item.setDueDatetime(LocalDateTime.now().plusDays(1));
+        item.setDoneDatetime(LocalDateTime.now());
+
+        when(toDoService.markAsNotDone(1L)).thenReturn(item);
+
+        mockMvc.perform(patch("/todos/1/not-done"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.status").value("NOT_DONE"));
     }
 
     @Test

@@ -73,6 +73,42 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     @Override
+    public ToDoItem markAsDone(Long id) {
+        ToDoItem item = getItemById(id);
+
+        if (item.getStatus() == Status.DONE) {
+            throw new ConflictException("Item marked already as done.");
+        }
+
+        if (item.getStatus() == Status.OVERDUE) {
+            throw new ConflictException("Cannot mark an overdue item as done.");
+        }
+
+        item.setStatus(Status.DONE);
+        item.setDoneDatetime(LocalDateTime.now());
+
+        return toDoItemRepository.save(item);
+    }
+
+    @Override
+    public ToDoItem markAsNotDone(Long id) {
+        ToDoItem item = getItemById(id);
+
+        if (item.getStatus() == Status.NOT_DONE) {
+            throw new ConflictException("Item marked already as not done.");
+        }
+
+        if (item.getStatus() == Status.OVERDUE) {
+            throw new ConflictException("Cannot mark an overdue item as done.");
+        }
+
+        item.setStatus(Status.NOT_DONE);
+        item.setDoneDatetime(null);
+
+        return toDoItemRepository.save(item);
+    }
+
+    @Override
     public void deleteItem(Long id) {
         ToDoItem item = getItemById(id);
         validateOverdue(item);

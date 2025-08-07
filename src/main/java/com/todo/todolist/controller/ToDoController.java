@@ -57,6 +57,18 @@ public class ToDoController {
         return ResponseEntity.ok(updated);
     }
 
+    @PatchMapping("/{id}/done")
+    public ResponseEntity<ToDoItem> markAsDone(@PathVariable Long id) {
+        ToDoItem updated = toDoService.markAsDone(id);
+        return ResponseEntity.ok(updated);
+    }
+
+    @PatchMapping("/{id}/not-done")
+    public ResponseEntity<ToDoItem> markAsNotDone(@PathVariable Long id) {
+        ToDoItem updated = toDoService.markAsNotDone(id);
+        return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable Long id) {
         toDoService.deleteItem(id);
