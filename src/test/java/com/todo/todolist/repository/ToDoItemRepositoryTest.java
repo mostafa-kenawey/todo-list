@@ -6,18 +6,27 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@Transactional
+@Rollback
 class ToDoItemRepositoryTest {
 
     @Autowired
     private ToDoItemRepository repository;
+    
+    @Autowired
+    private TestEntityManager entityManager;
 
     private ToDoItem createSampleItem(String description, Status status, LocalDateTime dueDatetime) {
         ToDoItem item = new ToDoItem();
@@ -71,8 +80,16 @@ class ToDoItemRepositoryTest {
     @Test
     @DisplayName("Should check existence by description and dueDatetime")
     void testexistsByDescriptionAndDueDatetimeAndStatus() {
-        LocalDateTime due = LocalDateTime.now().plusDays(3);
-        createSampleItem("Unique Task", Status.NOT_DONE, due);
+        LocalDateTime due = LocalDateTime.of(2025, 1, 1, 12, 0, 0).truncatedTo(ChronoUnit.SECONDS);
+        
+        ToDoItem item = new ToDoItem();
+        item.setDescription("Unique Task");
+        item.setStatus(Status.NOT_DONE);
+        item.setCreationDatetime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        item.setDueDatetime(due);
+        
+        entityManager.persistAndFlush(item);
+        entityManager.clear();
 
         boolean exists = repository.existsByDescriptionAndDueDatetimeAndStatus("Unique Task", due, Status.NOT_DONE);
         boolean notExists = repository.existsByDescriptionAndDueDatetimeAndStatus("Other Task", due, Status.NOT_DONE);
@@ -84,13 +101,26 @@ class ToDoItemRepositoryTest {
     @Test
     @DisplayName("Should check existence by description and dueDatetime excluding current ID")
     void testexistsByDescriptionAndDueDatetimeAndStatusAndIdNot() {
-        LocalDateTime due = LocalDateTime.now().plusDays(3);
-        ToDoItem item = createSampleItem("Task to update", Status.NOT_DONE, due);
-    
-        createSampleItem("Another Task", Status.NOT_DONE, due);
+        LocalDateTime due = LocalDateTime.of(2025, 1, 2, 14, 0, 0).truncatedTo(ChronoUnit.SECONDS);
+        
+        ToDoItem item1 = new ToDoItem();
+        item1.setDescription("Task to update");
+        item1.setStatus(Status.NOT_DONE);
+        item1.setCreationDatetime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        item1.setDueDatetime(due);
+        entityManager.persistAndFlush(item1);
+        
+        ToDoItem item2 = new ToDoItem();
+        item2.setDescription("Another Task");
+        item2.setStatus(Status.NOT_DONE);
+        item2.setCreationDatetime(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        item2.setDueDatetime(due);
+        entityManager.persistAndFlush(item2);
+        
+        entityManager.clear();
 
-        boolean exists = repository.existsByDescriptionAndDueDatetimeAndStatusAndIdNot("Another Task", due, Status.NOT_DONE, item.getId());
-        boolean notExists = repository.existsByDescriptionAndDueDatetimeAndStatusAndIdNot("Task to update 2", due, Status.NOT_DONE, item.getId());
+        boolean exists = repository.existsByDescriptionAndDueDatetimeAndStatusAndIdNot("Another Task", due, Status.NOT_DONE, item1.getId());
+        boolean notExists = repository.existsByDescriptionAndDueDatetimeAndStatusAndIdNot("Task to update 2", due, Status.NOT_DONE, item1.getId());
 
         assertThat(exists).isTrue();
         assertThat(notExists).isFalse();

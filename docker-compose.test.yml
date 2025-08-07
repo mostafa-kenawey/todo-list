@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      target: test
+    container_name: todo-test-runner
+    volumes:
+      - ./target:/app/target
+    command: mvn clean test jacoco:report
+    
+  coverage-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+      target: coverage-server
+    container_name: todo-coverage-server
+    ports:
+      - "8081:80"
+    depends_on:
+      - test-runner

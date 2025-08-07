@@ -1,0 +1,14 @@
+FROM maven:3.9.4-eclipse-temurin-17 AS test
+
+WORKDIR /app
+COPY pom.xml .
+
+RUN mvn dependency:go-offline -B
+COPY src ./src
+
+RUN mvn clean test jacoco:report
+FROM nginx:alpine AS coverage-server
+COPY --from=test /app/target/site/jacoco /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
