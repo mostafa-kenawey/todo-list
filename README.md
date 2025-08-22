@@ -203,3 +203,15 @@ You can also use Postman to test the API.
 - Improve Error Aggregation, Support multiple field errors in a single response
 - More Robust Overdue Logic and calculate overdue based on dueDatetime also, not status
 - Caching for frequent read operations
+
+
+
+## Production Ready  
+
+- Enhance Scheduler approach to distributed solution
+- API keys / JWT auth
+- Use Database Migrations Tools
+- Create Profiles / Environments for Staging and Production
+- Secrets Management
+- Logging & Monitoring
+- Caching: starter-cache
