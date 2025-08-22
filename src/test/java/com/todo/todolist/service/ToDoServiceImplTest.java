@@ -180,15 +180,17 @@ class ToDoServiceImplTest {
     @Test
     void testUpdateItemDuplicate() {
         Long itemId = 1L;
+        LocalDateTime futureDate = LocalDateTime.now().plusDays(5);
 
         ToDoItem existing = createMockItem();
         existing.setId(itemId);
         existing.setDescription("Original");
-        existing.setDueDatetime(LocalDateTime.of(2025, 8, 10, 10, 0));
+        existing.setDueDatetime(futureDate);
+        existing.setStatus(Status.NOT_DONE);
 
         ToDoItem updated = createMockItem();
         updated.setDescription("Duplicate"); 
-        updated.setDueDatetime(LocalDateTime.of(2025, 8, 10, 10, 0)); 
+        updated.setDueDatetime(futureDate); 
 
         when(repository.findById(itemId)).thenReturn(Optional.of(existing));
         when(repository.existsByDescriptionAndDueDatetimeAndStatusAndIdNot(

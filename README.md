@@ -215,3 +215,4 @@ You can also use Postman to test the API.
 - Secrets Management
 - Logging & Monitoring
 - Caching: starter-cache
+- Database Index
